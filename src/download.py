@@ -11,8 +11,10 @@ from requests_html import HTMLSession, AsyncHTMLSession
 
 
 class Downloader(LoggingHandler):
-    item_url = None
+    items_url = None
     criteria = []
+    db_url = None
+    main_table = None
 
     session = HTMLSession()
     asession = AsyncHTMLSession()
@@ -39,7 +41,7 @@ class Downloader(LoggingHandler):
         self._init_urls()
 
         # Initialise DB connection
-        self.db = DB("postgresql://admin:@localhost:5435/", self.db_name, "fatawa")
+        self.db = DB(self.db_url, self.db_name, self.main_table)
 
         # Check that criteria isn't empty
         if not self.criteria:
@@ -92,7 +94,7 @@ class Downloader(LoggingHandler):
 
     async def get_item_data(self, ref, db):
         """Downloads items and add to the db"""
-        response = await self.asession.get(self.item_url.format(ref))
+        response = await self.asession.get(self.items_url.format(ref))
 
         if response.status_code == 404:
             return self.log.debug(f"Item {ref} doesn't exist")
