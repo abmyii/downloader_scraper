@@ -12,10 +12,10 @@ class ExampleDownloader(Downloader):
     def _init_urls(self):
         # Initialise variable urls
         self.url = f'...'
-        self.search = f'...'
-        self.items_url = f'...'
+        self.search = f'{self.url}/...'
+        self.items_url = f'{self.url}/...'
 
-    async def get_refs_each(self, criteria, lastUpdate):
+    async def get_refs_each(self, criterion, lastUpdate):
         """Get references"""
         try:
             ...

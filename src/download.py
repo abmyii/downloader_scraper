@@ -11,6 +11,7 @@ from requests_html import HTMLSession, AsyncHTMLSession
 
 
 class Downloader(LoggingHandler):
+    default_datetime = "1900-01-01T00:00:00.000Z"
     items_url = None
     criteria = []
     db_url = None
@@ -94,7 +95,8 @@ class Downloader(LoggingHandler):
 
     async def get_item_data(self, ref, db):
         """Downloads items and add to the db"""
-        response = await self.asession.get(self.items_url.format(ref))
+        url = self.items_url or ref  # if items_url is empty, treat ref as URL
+        response = await self.asession.get(url)
 
         if response.status_code == 404:
             return self.log.debug(f"Item {ref} doesn't exist")
