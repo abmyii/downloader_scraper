@@ -9,6 +9,10 @@ from dataset.util import index_name, normalize_column_name
 class DB:
     def __init__(self, db_url, db_name='', main_tbl_name=''):
         # Connect to database
+        if 'sqlite' in db_url:
+            # Don't append db_name to connection with SQLite
+            db_name = ''
+
         self.db = dataset.connect(f"{db_url}{db_name}", autocreate_db=True)
         self.tables = OrderedDict()  # Contains tables data
         self.main_tbl_name = main_tbl_name
