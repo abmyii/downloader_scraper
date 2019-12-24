@@ -1,8 +1,8 @@
 import flatdict
 import json
 
-from .download import Downloader
-from .utils import fail_custom_msg, LoggingHandler
+from downloader_scraper.download import Downloader
+from downloader_scraper.utils import fail_custom_msg, LoggingHandler
 
 class ExampleDownloader(Downloader):
     criteria = ...  # Iterates through these and extracts items from pages

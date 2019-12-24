@@ -101,7 +101,8 @@ class Downloader(LoggingHandler):
 
     async def get_item_data(self, ref, db):
         """Downloads items and add to the db"""
-        url = self.items_url or ref  # if items_url is empty, treat ref as URL
+        # If items_url is empty, treat ref as URL
+        url = self.items_url.format(ref) or ref
         response = await self.asession.get(url)
 
         if response.status_code == 404:

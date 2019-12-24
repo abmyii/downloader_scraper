@@ -3,13 +3,13 @@ import time
 import logging
 import sys
 
-import src.example
+import example
 
 fmt = "[%(levelname)6s] (%(name)40s.%(funcName)-15s-%(lineno)4d):\t%(message)s"
 
 
 def download():
-    src.example.download()
+    example.download()
 
 
 if __name__ == "__main__":

@@ -4,9 +4,9 @@ import copy
 import flatdict
 import pytest
 
-from ..example import ExampleDownloader
-from ..db import DB
-from ..utils import NoNoneOrderedDict
+from example import ExampleDownloader
+from downloader_scraper.db import DB
+from downloader_scraper.utils import NoNoneOrderedDict
 
 # Setup class to test
 cls = ExampleDownloader()
