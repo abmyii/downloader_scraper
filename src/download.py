@@ -1,5 +1,6 @@
 import asyncio
 import datetime
+import os
 import requests
 import time
 import traceback
@@ -8,6 +9,11 @@ from .db import DB
 from .utils import LoggingHandler
 
 from requests_html import HTMLSession, AsyncHTMLSession
+
+
+MAX_REQUESTS = 50
+if 'MAX_REQUESTS' in os.environ:
+    MAX_REQUESTS = os.environ['MAX_REQUESTS']
 
 
 class Downloader(LoggingHandler):
@@ -22,7 +28,7 @@ class Downloader(LoggingHandler):
 
     # Configure the session preferences
     adapter = requests.adapters.HTTPAdapter(
-        max_retries=10, pool_connections=100, pool_maxsize=100
+        max_retries=10, pool_connections=MAX_REQUESTS, pool_maxsize=MAX_REQUESTS
     )
     asession.mount('http://', adapter)
     asession.mount('https://', adapter)

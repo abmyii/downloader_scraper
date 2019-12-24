@@ -29,12 +29,15 @@ class DB:
         # Add item(s) to table dictionary.
         for item in items:
             for key in item:
+                # Fix column names which are longer than 63 characters
                 if len(key) > 63:
-                    # Add key if not already present
-                    self.db['__col_ref'].upsert(dict(name=key), 'name')
+                    # Add column name if not already present
+                    self.db['__col_ref'].upsert(OrderedDict(name=key), 'name')
 
-                    # Get key id
+                    # Get added item's id
                     ref_id = self.db['__col_ref'].find_one(name=key)['id']
+
+                    # Create a new abbreviated name for the column
                     chars = int((60 - len(str(ref_id))) / 2)
                     new_key = f'{key[:chars]}·{key[-chars:]}#{ref_id}'
 
