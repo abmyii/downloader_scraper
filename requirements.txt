@@ -1,0 +1,6 @@
+git+https://github.com/abmyii/dataset
+git+https://github.com/abmyii/flatdict
+requests_html
+requests
+pytest
+xxhash
